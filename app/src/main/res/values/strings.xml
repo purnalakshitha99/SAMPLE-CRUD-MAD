@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CRUD</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_age">Enter Age</string>
+    <string name="enter_salary">Enter Sslary</string>
+    <string name="save_data">Save Data</string>
+</resources>
