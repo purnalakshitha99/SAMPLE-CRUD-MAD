@@ -1,5 +1,8 @@
 package com.lahiru.crud.activities
 
+
+
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -53,6 +56,26 @@ class FetchingActivity : AppCompatActivity() {
                     val mAdapter = EmpAdapter(empList)
                     empRecyclerView.adapter = mAdapter
 
+                    mAdapter.setOnItemClickListener(object : EmpAdapter.onItemClickListener{
+                        override fun onItemClick(position: Int) {
+                            val intent = Intent(this@FetchingActivity,EmployeeDetailsActivity::class.java)
+
+                            //put extras
+
+                            intent.putExtra("empId",empList[position].empId)
+                            intent.putExtra("empName",empList[position].empName)
+                            intent.putExtra("empAge",empList[position].empAge)
+                            intent.putExtra("empSalary",empList[position].empSalary)
+                            startActivity(intent)
+
+
+
+
+
+                        }
+
+                    })
+
                     empRecyclerView.visibility = View.VISIBLE
                     tvLoadingData.visibility = View.GONE
                 }
@@ -65,3 +88,6 @@ class FetchingActivity : AppCompatActivity() {
         })
     }
 }
+
+
+
