@@ -1,5 +1,6 @@
 package com.lahiru.crud.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -34,6 +35,31 @@ class EmployeeDetailsActivity : AppCompatActivity() {
                 intent.getStringExtra("empName").toString()
 
             )
+        }
+
+        btnDelete.setOnClickListener{
+            deleteRecord(
+                intent.getStringExtra("empId").toString()
+
+            )
+
+        }
+    }
+
+    private fun deleteRecord(
+        id:String
+    ){
+        val dbRef = FirebaseDatabase.getInstance().getReference("Employees").child(id)
+        val mTask =dbRef.removeValue()
+
+        mTask.addOnSuccessListener {
+            Toast.makeText(this,"Employee Data Deleted",Toast.LENGTH_LONG).show()
+
+            val intent = Intent(this,FetchingActivity::class.java)
+            finish()
+            startActivity(intent)
+        }.addOnFailureListener{ error->
+            Toast.makeText(this,"Deleting Err ${error.message}",Toast.LENGTH_LONG).show()
         }
     }
 
@@ -83,6 +109,8 @@ class EmployeeDetailsActivity : AppCompatActivity() {
         mDialog.setTitle("Updating $etEmpName Record")
         val alertDialog = mDialog.create()
         alertDialog.show()
+
+
 
         btnUpdateData.setOnClickListener{
             updateEmpData(
